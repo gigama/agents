@@ -1,0 +1,165 @@
+# agent robots file
+
+# =============================================================================
+# robots.txt — AI Crawler Restriction Policy
+# =============================================================================
+# Purpose : Discourage automated access by the four major LLM families
+#           (Anthropic Claude, OpenAI ChatGPT, Google Gemini, Microsoft Copilot)
+#           and their associated training, search-indexing, and inference crawlers.
+#
+# Standard : Robots Exclusion Protocol (REP), per RFC 9309 (August 2022).
+#            Each vendor's user-agent strings are sourced from their official
+#            developer documentation and verified against the Cloudflare Radar
+#            Bots Directory (May 2026).
+#
+# Scope    : This file governs automated HTTP access. It does NOT:
+#            - prevent a model from generating outputs based on prior training,
+#            - prevent a human user from pasting content into a chat interface,
+#            - constitute a legally binding access restriction on its own.
+#
+# See also : AGENT.md  (per-LLM agentic policy)
+#            LICENSE   (intellectual property terms)
+#            AGENT-NEG.md files (per-vendor negative access instructions)
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# ANTHROPIC — Claude family
+# Three distinct crawlers as of February 2026 (documented at support.anthropic.com)
+#
+#   ClaudeBot       — primary training data crawler
+#   Claude-User     — real-time fetch triggered by a user question in Claude.ai
+#   Claude-SearchBot — indexes content for Claude search / citation features
+#   claude-web      — legacy alias, still observed in server logs
+# -----------------------------------------------------------------------------
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Claude-User
+Disallow: /
+
+User-agent: Claude-SearchBot
+Disallow: /
+
+User-agent: claude-web
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+
+# -----------------------------------------------------------------------------
+# OPENAI — ChatGPT / GPT-4o family
+# Three distinct crawlers (documented at platform.openai.com/docs/bots)
+#
+#   GPTBot          — training data collection for GPT models
+#   ChatGPT-User    — real-time browsing triggered by a ChatGPT user
+#   OAI-SearchBot   — indexes content for ChatGPT Search (not for training)
+# -----------------------------------------------------------------------------
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: OAI-SearchBot
+Disallow: /
+
+
+# -----------------------------------------------------------------------------
+# GOOGLE — Gemini / Vertex AI family
+# Google uses its existing crawler infrastructure with extended product tokens.
+# Note: Google-Extended cannot be blocked via HTTP header filtering — only
+# robots.txt product tokens work, per Google's developer documentation.
+#
+#   Google-Extended         — opts content out of Gemini and Vertex AI training
+#   Google-CloudVertexBot   — Vertex AI Agent Builder / RAG pipeline crawler
+#   Gemini-Deep-Research    — Gemini's deep research agent crawler
+#   Google-Agent            — general Google AI agent fetcher
+# -----------------------------------------------------------------------------
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Google-CloudVertexBot
+Disallow: /
+
+User-agent: CloudVertexBot
+Disallow: /
+
+User-agent: Gemini-Deep-Research
+Disallow: /
+
+User-agent: Google-Agent
+Disallow: /
+
+
+# -----------------------------------------------------------------------------
+# MICROSOFT — Copilot / Bing family
+# Microsoft Copilot's web answers are grounded via Bingbot infrastructure.
+# Blocking Bingbot also affects standard Bing search indexing — this is an
+# intentional all-or-nothing decision for this policy. If standard Bing search
+# visibility is desired, replace the Bingbot block with a path-specific rule.
+#
+#   Bingbot         — primary Bing crawler; grounds Copilot web answers
+#   msnbot          — legacy Microsoft crawler string, still appears in logs
+#   msnbot-media    — Microsoft media crawler
+# -----------------------------------------------------------------------------
+
+User-agent: Bingbot
+Disallow: /
+
+User-agent: msnbot
+Disallow: /
+
+User-agent: msnbot-media
+Disallow: /
+
+
+# -----------------------------------------------------------------------------
+# COMMON CRAWL — CCBot
+# Common Crawl is a nonprofit that openly publishes web crawl data used by
+# nearly all LLM training pipelines (including OpenAI, Google, and many others).
+# Blocking CCBot is one of the most effective training-data opt-outs available.
+# -----------------------------------------------------------------------------
+
+User-agent: CCBot
+Disallow: /
+
+
+# -----------------------------------------------------------------------------
+# DEFAULT — all other unrecognized crawlers
+# The wildcard rule catches any crawler whose user-agent is not explicitly
+# listed above, including future AI crawlers not yet publicly documented,
+# spoofed agents, and anonymous scrapers.
+#
+# TRADE-OFF: This blocks standard search engines (Googlebot, DuckDuckBot,
+# Baiduspider, etc.) and legitimate link-checkers. Remove or replace with
+# path-specific rules if search-engine indexing is desired.
+# -----------------------------------------------------------------------------
+
+User-agent: *
+Disallow: /
+
+
+# -----------------------------------------------------------------------------
+# PLAIN-LANGUAGE POLICY STATEMENT
+# Not parsed by robots.txt consumers, but included for human readers and for
+# LLM inference-time agents that read this file as a text document.
+#
+# This repository does not authorize:
+#   - automated crawling for model training or fine-tuning purposes,
+#   - real-time retrieval for use as grounding context in AI-generated answers,
+#   - indexing for AI-powered search or citation systems,
+#   - any other automated ingestion by large language model infrastructure.
+#
+# These restrictions apply regardless of whether access is initiated by a
+# training pipeline, an inference-time agent, or a user-directed fetch.
+# The technical capability to read these files does not constitute authorization.
+#
+# For licensing terms see: LICENSE
+# For per-agent behavioral instructions see: AGENT.md / AGENT-NEG.md
+# For human contact: see README.md
+# -----------------------------------------------------------------------------
