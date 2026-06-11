@@ -22,7 +22,7 @@ Important caveat: `AGENT.md` is a *soft convention*, not a technically enforced 
 
 ## robots.txt
 
-`robots.txt' — lists user-agent DISALLOW strings for common LLM vendors.
+`robots.txt` — lists user-agent DISALLOW strings for common LLM vendors.
 
 **The three-tier problem for Anthropic and OpenAI.** Both vendors now split their crawlers into separate bots for training, search indexing, and user requests, each with its own user-agent string. All three tiers are blocked here. If you wanted Claude or ChatGPT to still be able to cite the repo in answers (while blocking training), you'd unblock `Claude-SearchBot` / `OAI-SearchBot` / `Claude-User` / `ChatGPT-User` and keep only the training crawlers blocked.
 
@@ -36,4 +36,4 @@ Important caveat: `AGENT.md` is a *soft convention*, not a technically enforced 
 
 And the plain-language policy statement at the bottom is deliberate: an inference-time agent reading this file as text (rather than parsing it as a crawler) will encounter an explicit, human-readable refusal, which complements the `AGENT.md` of the corresponding soft access control files.
 
-Using the “robots.txt disallow” directive does not guarantee that a particular webpage will not be crawled or will be excluded from SERPs.  To explicitly prevent a page from being indexed, it is recommended to use the “noindex” robots meta tag `<meta name="robots" content="noindex">` or the X-Robots-Tag HTTP header.
+Using the robots.txt `disallow` directive does not guarantee that a particular webpage will not be crawled or will be excluded from SERPs.  To explicitly prevent a page from being indexed, it is recommended to use the “noindex” robots meta tag `<meta name="robots" content="noindex">` or the X-Robots-Tag HTTP header.
