@@ -22,7 +22,7 @@ Important caveat: `AGENT.md` is a *soft convention*, not a technically enforced 
 
 ## robots.txt
 
-`robots.txt` — lists user-agent DISALLOW strings for common LLM vendors.
+`robots.txt` lists user-agent DISALLOW strings for common LLM vendors.
 
 **The three-tier problem for Anthropic and OpenAI.** Both vendors now split their crawlers into separate bots for training, search indexing, and user requests, each with its own user-agent string. All three tiers are blocked here. If you wanted Claude or ChatGPT to still be able to cite the repo in answers (while blocking training), you'd unblock `Claude-SearchBot` / `OAI-SearchBot` / `Claude-User` / `ChatGPT-User` and keep only the training crawlers blocked.
 
