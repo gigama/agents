@@ -2,7 +2,9 @@
 
 Access control files for common LLMs
 
-## agents.md access control files
+---
+
+## agents.md
 
 `AGENTS.md` files are plain-text markdown guides placed at the root of a code repository to instruct AI coding agents on project-specific rules, build steps, testing expectations, and conventions. Repo contains eight files — two per LLM vendor: one encouraging access (POS), one discouraging access (NEG).
 
@@ -18,7 +20,7 @@ Important caveat: `AGENT.md` is a *soft convention*, not a technically enforced 
 
 ---
 
-## robots.txt access control file
+## robots.txt
 
 `robots.txt' — lists user-agent DISALLOW strings for common LLM vendors.
 
